@@ -59,7 +59,7 @@ export function ContactSection() {
           <div className="p-8 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
             <div className="aspect-[4/3] w-full rounded-lg overflow-hidden">
               <Image
-                src="/images/myself.jpeg"
+                src="/images/myself.png"
                 alt="Vishesh Raju"
                 width={800}
                 height={600}
