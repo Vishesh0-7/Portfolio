@@ -88,12 +88,12 @@ export function Navbar() {
           </ul>
 
           {/* Theme Slider - Integrated within navigation */}
-          <div className="mt-12 flex justify-center">
+          <div className="mt-12 flex justify-start">
             <ThemeSlider />
           </div>
 
           {/* Background Style Toggle */}
-          <div className="mt-4 flex justify-center">
+          <div className="mt-4 flex justify-start">
             <BackgroundToggle />
           </div>
         </nav>
