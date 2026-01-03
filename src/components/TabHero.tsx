@@ -16,32 +16,32 @@ const tabs: Tab[] = [
     id: "overview",
     label: "Overview",
     content: {
-      title: "Software Engineer & AI/ML Specialist",
-      description: "Building scalable systems and intelligent solutions across the full stack, from cloud infrastructure to machine learning pipelines.",
+      title: "Engineer by Training, Problem-Solver by Nature",
+      description: "I build software, train models, and wrestle data until it behaves. I enjoy working across the stack from designing clean APIs to experimenting with ML models and deploying everything to the cloud. If there’s a complex problem, I’m probably trying to simplify it (and enjoying the process). ",
     },
   },
   {
     id: "software",
     label: "Software",
     content: {
-      title: "Full-Stack Software Engineer",
-      description: "Designing and implementing robust, scalable applications with modern frameworks, clean architecture, and best practices.",
+      title: "Full-Stack Sorcerer 🧙‍♂️",
+      description: "I write software that’s fast, clean, and built to scale not “works on my machine” code. From backend services to full-stack applications, I care about structure, performance, and maintainability. I enjoy designing systems that don’t just run, but keep running as they grow.",
     },
   },
   {
     id: "aiml",
     label: "AI/ML",
     content: {
-      title: "AI/ML Engineer",
-      description: "Developing intelligent systems using deep learning, NLP, and computer vision to solve complex real-world problems.",
+      title: "ML Engineer (I Teach Machines New Tricks)",
+      description: "I work on teaching machines to find patterns, make predictions, and occasionally surprise me. From data preprocessing to model training and evaluation, I enjoy experimenting, iterating, and squeezing performance out of both supervised and unsupervised approaches. When models fail, I debug them like software because they are.",
     },
   },
   {
     id: "data",
     label: "Data & Cloud",
     content: {
-      title: "Data & Cloud Engineer",
-      description: "Building data pipelines, analytics platforms, and cloud-native solutions for large-scale distributed systems.",
+      title: "Data Engineer in Disguise",
+      description: "I build data pipelines and cloud systems that move fast, scale well, and don’t fall over under load. From big data workflows to cloud deployments, I focus on reliability and efficiency. If data needs to flow, process, or power ML I make sure it gets there.",
     },
   },
 ];
