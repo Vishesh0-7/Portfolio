@@ -75,10 +75,10 @@ export function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={`block text-sm font-medium tracking-wide transition-colors duration-200 ${
+                  className={`block text-sm font-medium tracking-wide transition-all duration-300 ${
                     activeSection === link.id
-                      ? "text-white"
-                      : "text-[#aaa] hover:text-white"
+                      ? "text-white opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                      : "text-gray-500/50 opacity-50 hover:text-white hover:opacity-80"
                   }`}
                 >
                   {link.label}
@@ -142,8 +142,8 @@ export function Navbar() {
                       onClick={() => setMobileMenuOpen(false)}
                       className={`block text-2xl font-normal tracking-wide transition-all duration-300 ${
                         activeSection === link.id
-                          ? "text-white"
-                          : "text-gray-500 hover:text-white"
+                          ? "text-white opacity-100 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]"
+                          : "text-gray-500/50 opacity-50 hover:text-white hover:opacity-80"
                       }`}
                     >
                       {link.label}

@@ -75,10 +75,10 @@ export function TabHero() {
             <button
               key={tab.id}
               onClick={() => handleTabChange(tab.id)}
-              className={`px-4 py-2 text-sm sm:text-base font-normal tracking-wide transition-colors duration-300 ${
+              className={`px-4 py-2 text-sm sm:text-base font-normal tracking-wide transition-all duration-300 ${
                 activeTab === tab.id
-                  ? "text-white"
-                  : "text-[#888] hover:text-white"
+                  ? "text-white opacity-100 drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                  : "text-gray-500/50 opacity-50 hover:text-white hover:opacity-80"
               }`}
             >
               {tab.label}

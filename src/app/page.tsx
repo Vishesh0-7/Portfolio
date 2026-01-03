@@ -8,7 +8,7 @@ import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { ResumeSection } from "@/components/ResumeSection";
 import { ContactSection } from "@/components/ContactSection";
-/*import { Footer } from "@/components/Footer";*/
+import { Footer } from "@/components/Footer";
 import { IntroScreen } from "@/components/IntroScreen";
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
         <ExperienceSection />
         <ResumeSection />
         <ContactSection />
-        {/* <Footer /> */}
+        <Footer />
       </main>
     </>
   );

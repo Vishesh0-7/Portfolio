@@ -1,6 +1,6 @@
 /**
  * Footer component
- * Minimal footer with copyright information
+ * Minimal footer with copyright information*/
  
 export function Footer() {
   return (
@@ -18,4 +18,3 @@ export function Footer() {
     </footer>
   );
 }
-*/
