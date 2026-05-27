@@ -4,6 +4,9 @@ export const featuredRepos = [
   "Aurora-AI-Invoice-Generator",
   "Autonomous-Fleet-Simulator",
   "Github-Analyzer",
+  "AuRA-Discovery",
+  "CS698_Project_TrelloPlus",
+  "Portfolio",
   "SchedLab",
   "vetgraph",
   "Microglia-Morphology",
@@ -41,6 +44,19 @@ export const featuredRepoOverrides: Record<string, FeaturedRepoOverride> = {
   "Microglia-Morphology": {
     displayName: "Microglia Morphology Analysis",
     category: "Machine Learning",
+    pinned: true,
+  },
+  "AuRA-Discovery": {
+    displayName: "AuRA Discovery",
+    category: "AI / Research",
+  },
+  "CS698_Project_TrelloPlus": {
+    displayName: "TrelloPlus (CS698)",
+    category: "Frontend / Tools",
+  },
+  "Portfolio": {
+    displayName: "Portfolio Website",
+    category: "Web / Personal",
     pinned: true,
   },
   "fastapi-sqlalchemy-calculator": {
