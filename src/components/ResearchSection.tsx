@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SectionWrapper } from "./SectionWrapper";
 import { ResearchAreaCard } from "./ResearchAreaCard";
 import { WorkModal } from "./WorkModal";
-import { researchAreas, researchWork, researchSkills, ResearchWork } from "@/data/research";
+import { researchAreas, researchWork, ResearchWork } from "@/data/research";
 import { Beaker, FileCode } from "lucide-react";
 
 /**
@@ -131,31 +131,6 @@ export function ResearchSection() {
             </div>
           </div>
 
-          {/* Skills & Tools */}
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-              Tools & Technologies
-            </h3>
-            <div className="space-y-6">
-              {Object.entries(researchSkills).map(([category, skills]) => (
-                <div key={category}>
-                  <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">
-                    {category}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {skills.map((skill, index) => (
-                      <span
-                        key={index}
-                        className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </SectionWrapper>
 

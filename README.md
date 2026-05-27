@@ -10,7 +10,8 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 - ⚡ Built with Next.js 14 App Router
 - 🎯 TypeScript for type safety
 - 💅 Tailwind CSS for styling
-- 🎭 Smooth animations and transitions
+- 🎭 Framer Motion-powered transitions
+- 🔗 GitHub-synced featured projects
 
 ## Project Structure
 
@@ -34,8 +35,14 @@ Portfolio/
 │   │   ├── ResumeSection.tsx    # Resume download section
 │   │   ├── ContactSection.tsx   # Contact information
 │   │   └── Footer.tsx           # Footer component
-│   └── data/
-│       └── projects.ts          # Project data array
+│   ├── data/
+│   │   ├── featuredRepos.ts     # GitHub allowlist and overrides
+│   │   ├── projects.ts          # Legacy project data/model
+│   │   └── resume.ts            # Skills and education data
+│   ├── lib/
+│   │   └── github.ts            # Server-side GitHub API helper
+│   └── types/
+│       └── github.ts            # GitHub response/project types
 ├── package.json
 ├── tsconfig.json
 ├── tailwind.config.ts
@@ -73,9 +80,10 @@ Portfolio/
    - Update interests/skills icons and labels
 
 3. **Projects:**
-   - Modify project data in `src/data/projects.ts`
-   - Add or remove projects from the array
-   - Update technologies, links, and descriptions
+   - Edit the allowlist in `src/data/featuredRepos.ts`
+   - Add or remove repository names from `featuredRepos`
+   - Use `featuredRepoOverrides` to set custom titles, categories, pinned state, or demo links
+   - Set `GITHUB_USERNAME` and optional `GITHUB_TOKEN` in `.env.local`
 
 4. **Experience:**
    - Edit experience data in `src/components/ExperienceSection.tsx`
@@ -90,6 +98,26 @@ Portfolio/
 - Colors can be customized in `tailwind.config.ts`
 - Dark mode colors are defined in `src/app/globals.css`
 
+### GitHub Projects Sync
+
+The Projects section now fetches selected repositories from GitHub.
+
+1. Create a `.env.local` file in the project root.
+2. Add the following values:
+
+```env
+GITHUB_USERNAME=your-github-username
+GITHUB_TOKEN=your-github-personal-access-token
+```
+
+3. Edit `src/data/featuredRepos.ts` and list only the repositories you want to show.
+4. Optionally configure `featuredRepoOverrides` in the same file for:
+   - `displayName`
+   - `demoUrl`
+   - `pinned`
+   - `category`
+5. Restart the dev server after changing env vars.
+
 ## Tech Stack
 
 - **Framework:** Next.js 14 (App Router)
@@ -97,6 +125,7 @@ Portfolio/
 - **Styling:** Tailwind CSS
 - **Icons:** Lucide React
 - **Theme:** next-themes
+- **Motion:** Framer Motion
 - **Font:** Inter (Google Fonts)
 
 ## Scripts
@@ -106,12 +135,19 @@ Portfolio/
 - `npm start` - Start production server
 - `npm run lint` - Run ESLint
 
+## Required Packages
+
+Install the motion library used by the updated UI:
+
+```bash
+npm install framer-motion
+```
+
 ## Notes
 
-- All content is placeholder data - replace with your own information
+- Project cards are now synced from the selected GitHub repositories
 - Resume download link points to `/resume.pdf` - add your resume to the public folder
-- Project thumbnails are gray placeholders - replace with actual images/videos
-- GitHub and external links are dummy URLs - update with real links
+- GitHub and external links are generated from GitHub data or your manual overrides
 
 ## License
 

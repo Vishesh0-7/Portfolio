@@ -36,6 +36,11 @@ export interface ResumeProject {
   tech: string[];
 }
 
+export interface SkillGroup {
+  category: string;
+  items: string[];
+}
+
 /**
  * Skills data organized by category
  * Placeholder content for technical skills
@@ -126,6 +131,33 @@ export const educationData: Education[] = [
   "Digital Image Processing"
 
     ],
+  },
+];
+
+export const skillGroups: SkillGroup[] = [
+  {
+    category: "Languages",
+    items: ["Python", "TypeScript", "JavaScript", "Java", "C++", "SQL"],
+  },
+  {
+    category: "Frameworks",
+    items: ["Next.js", "React", "Node.js", "Express", "Tailwind CSS", "FastAPI"],
+  },
+  {
+    category: "Cloud & Big Data",
+    items: ["AWS", "Docker", "Hadoop", "Spark", "MapReduce", "Oozie"],
+  },
+  {
+    category: "AI/ML",
+    items: ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV", "LIME", "SHAP"],
+  },
+  {
+    category: "Databases",
+    items: ["MongoDB", "PostgreSQL", "SQLite", "SQLAlchemy", "MySQL"],
+  },
+  {
+    category: "Tools",
+    items: ["Git", "GitHub", "Linux", "Postman", "Jupyter", "Figma"],
   },
 ];
 

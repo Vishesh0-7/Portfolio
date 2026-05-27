@@ -2,6 +2,7 @@ import { SectionWrapper } from "./SectionWrapper";
 import { ContactMethod } from "./ContactMethod";
 import { Mail, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
+import DynamicProfileImage from "./DynamicProfileImage";
 
 /**
  * Contact section component
@@ -57,15 +58,9 @@ export function ContactSection() {
             </p>
           </div>
           <div className="p-8 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-            <div className="aspect-[4/3] w-full rounded-lg overflow-hidden">
-              <Image
-                src="/images/Myself.png"
-                alt="Vishesh Raju"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover"
-                priority
-              />
+            <div className="w-full">
+              {/* DynamicProfileImage will measure the actual image and set the aspect ratio */}
+              <DynamicProfileImage src="/images/Myself.png" alt="Vishesh Raju" />
             </div>
           </div>
         </div>
