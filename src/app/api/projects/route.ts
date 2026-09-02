@@ -7,7 +7,8 @@ export async function GET() {
   try {
     const payload = await getFeaturedGitHubProjects();
     return NextResponse.json(payload, { status: 200 });
-  } catch {
+  } catch (error) {
+    console.error("Failed to sync GitHub projects:", error);
     return NextResponse.json(
       {
         projects: [],

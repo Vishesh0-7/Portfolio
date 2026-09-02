@@ -3,6 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Sun, Moon } from "lucide-react";
 
+// Discrete dot positions (0 to 100 in steps of 10). Defined at module scope
+// so it has a stable identity across renders for the useEffect dependency arrays below.
+const DOT_VALUES = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
 /**
  * Discrete Theme Dots Slider
  * Click dots to snap between theme values (0-100)
@@ -14,16 +18,13 @@ export function ThemeSlider() {
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  // Discrete dot positions (0 to 100 in steps of 10)
-  const dotValues = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-
   // Load saved theme preference on mount
   useEffect(() => {
     const saved = localStorage.getItem('themeSliderValue');
     if (saved) {
       const value = Number(saved);
       // Snap to nearest dot
-      const nearest = dotValues.reduce((prev, curr) => 
+      const nearest = DOT_VALUES.reduce((prev, curr) =>
         Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
       );
       setSelectedDot(nearest);
@@ -165,7 +166,7 @@ export function ThemeSlider() {
     const percentage = Math.max(0, Math.min(100, 100 - (y / rect.height) * 100));
     
     // Snap to nearest dot
-    const nearest = dotValues.reduce((prev, curr) => 
+    const nearest = DOT_VALUES.reduce((prev, curr) => 
       Math.abs(curr - percentage) < Math.abs(prev - percentage) ? curr : prev
     );
     setSelectedDot(nearest);
@@ -183,7 +184,7 @@ export function ThemeSlider() {
       const percentage = Math.max(0, Math.min(100, 100 - (y / rect.height) * 100));
       
       // Snap to nearest dot
-      const nearest = dotValues.reduce((prev, curr) => 
+      const nearest = DOT_VALUES.reduce((prev, curr) => 
         Math.abs(curr - percentage) < Math.abs(prev - percentage) ? curr : prev
       );
       setSelectedDot(nearest);
@@ -200,7 +201,7 @@ export function ThemeSlider() {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, dotValues]);
+  }, [isDragging]);
 
   // Calculate icon properties
   const iconOpacity = 0.4 + (selectedDot / 100) * 0.6;
@@ -279,7 +280,7 @@ export function ThemeSlider() {
               </div>
             </div>
 
-            {dotValues.slice().reverse().map((value) => {
+            {DOT_VALUES.slice().reverse().map((value) => {
               const isSelected = selectedDot === value;
               const dotFactor = value / 100;
               

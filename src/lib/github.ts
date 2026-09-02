@@ -14,6 +14,8 @@ type GitHubRepoResponse = {
   languages_url: string;
 };
 
+const REQUEST_TIMEOUT_MS = 8000;
+
 const githubHeaders = (token?: string) => ({
   Accept: "application/vnd.github+json",
   "User-Agent": "Portfolio-Projects-Sync",
@@ -21,28 +23,43 @@ const githubHeaders = (token?: string) => ({
 });
 
 async function fetchGitHubJson<T>(url: string, token?: string): Promise<T | null> {
-  const request = async (authToken?: string) =>
-    fetch(url, {
-      headers: githubHeaders(authToken),
-      next: { revalidate: 3600 },
-    });
+  const request = async (authToken?: string) => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      return await fetch(url, {
+        headers: githubHeaders(authToken),
+        next: { revalidate: 3600 },
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
+  };
 
-  const response = await request(token);
+  try {
+    const response = await request(token);
 
-  if (!response.ok && token && (response.status === 401 || response.status === 403)) {
-    const fallbackResponse = await request(undefined);
-    if (!fallbackResponse.ok) {
+    if (!response.ok && token && (response.status === 401 || response.status === 403)) {
+      const fallbackResponse = await request(undefined);
+      if (!fallbackResponse.ok) {
+        console.error(`GitHub API request failed for ${url}: ${fallbackResponse.status}`);
+        return null;
+      }
+
+      return (await fallbackResponse.json()) as T;
+    }
+
+    if (!response.ok) {
+      console.error(`GitHub API request failed for ${url}: ${response.status}`);
       return null;
     }
 
-    return (await fallbackResponse.json()) as T;
-  }
-
-  if (!response.ok) {
+    return (await response.json()) as T;
+  } catch (error) {
+    console.error(`GitHub API request errored for ${url}:`, error);
     return null;
   }
-
-  return (await response.json()) as T;
 }
 
 const languageColors: Record<string, string> = {
@@ -61,13 +78,13 @@ const languageColors: Record<string, string> = {
   Shell: "#89e051",
 };
 
-function normalizeLanguages(payload: Record<string, number>): GitHubLanguage[] {
+export function normalizeLanguages(payload: Record<string, number>): GitHubLanguage[] {
   return Object.entries(payload)
     .map(([name, bytes]) => ({ name, bytes, color: languageColors[name] }))
     .sort((left, right) => right.bytes - left.bytes);
 }
 
-function buildDisplayName(repoName: string): string {
+export function buildDisplayName(repoName: string): string {
   return repoName
     .replace(/[-_]+/g, " ")
     .split(" ")

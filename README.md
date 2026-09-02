@@ -17,34 +17,39 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 
 ```
 Portfolio/
+├── .github/workflows/ci.yml # Lint, typecheck, test, build on push/PR
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx       # Root layout with theme provider
-│   │   ├── page.tsx         # Main home page
-│   │   └── globals.css      # Global styles and Tailwind imports
+│   │   ├── api/projects/route.ts # GitHub sync API route
+│   │   ├── layout.tsx        # Root layout with theme provider
+│   │   ├── page.tsx          # Main home page
+│   │   └── globals.css       # Global styles and Tailwind imports
 │   ├── components/
-│   │   ├── Navbar.tsx           # Navigation bar with mobile menu
-│   │   ├── ThemeToggle.tsx      # Dark mode toggle button
-│   │   ├── ThemeProvider.tsx    # Theme provider wrapper
-│   │   ├── SectionWrapper.tsx   # Reusable section container
-│   │   ├── HeroSection.tsx      # Landing/hero section
-│   │   ├── AboutSection.tsx     # About me section
-│   │   ├── ProjectCard.tsx      # Project card component
-│   │   ├── ProjectsSection.tsx  # Projects grid section
-│   │   ├── ExperienceSection.tsx # Work experience timeline
-│   │   ├── ResumeSection.tsx    # Resume download section
-│   │   ├── ContactSection.tsx   # Contact information
-│   │   └── Footer.tsx           # Footer component
+│   │   ├── Navbar.tsx            # Sidebar navigation with mobile menu
+│   │   ├── ThemeProvider.tsx     # next-themes provider wrapper
+│   │   ├── ThemeSlider.tsx       # Custom light/dark intensity control
+│   │   ├── SectionWrapper.tsx    # Reusable section container
+│   │   ├── IntroScreen.tsx       # Name intro animation on first load
+│   │   ├── HeroSection.tsx       # Landing/hero section
+│   │   ├── AboutSection.tsx      # About me section
+│   │   ├── ProjectCard.tsx / ProjectModal.tsx / ProjectsSection.tsx
+│   │   ├── ResearchSection.tsx / ResearchAreaCard.tsx / WorkModal.tsx
+│   │   ├── ExperienceSection.tsx / ExperienceCard.tsx
+│   │   ├── ResumeSection.tsx / EducationCard.tsx / SkillBadge.tsx
+│   │   ├── ContactSection.tsx / ContactMethod.tsx
+│   │   └── Footer.tsx            # Footer component
 │   ├── data/
 │   │   ├── featuredRepos.ts     # GitHub allowlist and overrides
-│   │   ├── projects.ts          # Legacy project data/model
+│   │   ├── research.ts          # Research area content
 │   │   └── resume.ts            # Skills and education data
 │   ├── lib/
-│   │   └── github.ts            # Server-side GitHub API helper
+│   │   ├── github.ts            # Server-side GitHub API helper
+│   │   └── github.test.ts       # Unit tests for the helper
 │   └── types/
 │       └── github.ts            # GitHub response/project types
 ├── package.json
 ├── tsconfig.json
+├── vitest.config.ts
 ├── tailwind.config.ts
 ├── postcss.config.mjs
 ├── next.config.mjs
@@ -134,20 +139,31 @@ GITHUB_TOKEN=your-github-personal-access-token
 - `npm run build` - Build for production
 - `npm start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm run typecheck` - Run the TypeScript compiler in check-only mode
+- `npm test` - Run the Vitest test suite once
+- `npm run test:watch` - Run tests in watch mode
 
-## Required Packages
+## Testing & CI
 
-Install the motion library used by the updated UI:
+- Unit tests live alongside the code they cover (`*.test.ts` / `*.test.tsx`) and use [Vitest](https://vitest.dev/) with [Testing Library](https://testing-library.com/) for component tests.
+- A GitHub Actions workflow (`.github/workflows/ci.yml`) runs lint, type checking, tests, and a production build on every push and pull request to `main`.
 
-```bash
-npm install framer-motion
-```
+## SEO
+
+- Set `NEXT_PUBLIC_SITE_URL` in `.env.local` to your deployed domain so OpenGraph/Twitter card metadata, `sitemap.xml`, and `robots.txt` resolve to real absolute URLs instead of `http://localhost:3000`.
+- `src/app/sitemap.ts` and `src/app/robots.ts` are generated automatically by Next.js from that URL — no manual XML/txt files to maintain.
+
+## Security Notes
+
+- `.env.local` is git-ignored and must never be committed. Copy `.env.example` to `.env.local` and fill in your own values.
+- If a GitHub token is ever exposed (committed, pasted into a chat, shared in a screenshot, etc.), revoke/rotate it immediately from your [GitHub tokens page](https://github.com/settings/tokens) — treat any token that left your local machine as compromised.
+- The GitHub sync API route only reads public repository metadata; it never accepts user input, so there is no injection surface there.
 
 ## Notes
 
-- Project cards are now synced from the selected GitHub repositories
-- Resume download link points to `/resume.pdf` - add your resume to the public folder
-- GitHub and external links are generated from GitHub data or your manual overrides
+- Project cards are synced live from the GitHub repositories listed in `src/data/featuredRepos.ts`.
+- The resume download link points to `/Vishesh_Raju_Resume.pdf` in the `public/` folder — replace that file with your own resume, or update the `href` in `DownloadButton.tsx`.
+- GitHub and external links are generated from GitHub data or your manual overrides.
 
 ## License
 

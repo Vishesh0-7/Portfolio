@@ -6,13 +6,32 @@ import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const title = "Vishesh Raju - Software Developer";
+const description = "Personal portfolio website showcasing projects and experience";
+
 export const metadata: Metadata = {
-  title: "Vishesh Raju - Software Developer",
-  description: "Personal portfolio website showcasing projects and experience",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
   icons: {
     icon: "/web_logo.png",
     shortcut: "/web_logo.png",
     apple: "/web_logo.png",
+  },
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: title,
+    images: ["/web_logo.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
+    images: ["/web_logo.png"],
   },
 };
 

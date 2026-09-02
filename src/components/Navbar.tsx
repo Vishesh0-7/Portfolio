@@ -5,6 +5,15 @@ import { useState, useEffect } from "react";
 import { ThemeSlider } from "./ThemeSlider";
 import { BackgroundToggle } from "./BackgroundToggle";
 
+const NAV_LINKS = [
+  { href: "#home", label: "Home", id: "home" },
+  { href: "#projects", label: "Projects", id: "projects" },
+  { href: "#research", label: "Research", id: "research" },
+  { href: "#experience", label: "Experience", id: "experience" },
+  { href: "#resume", label: "Resume", id: "resume" },
+  { href: "#contact", label: "Contact", id: "contact" },
+];
+
 /**
  * Sidebar navigation component
  * Minimal, editorial design with cinematic aesthetic
@@ -14,18 +23,9 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  const navLinks = [
-    { href: "#home", label: "Home", id: "home" },    
-    { href: "#projects", label: "Projects", id: "projects" },
-    { href: "#research", label: "Research", id: "research" },
-    { href: "#experience", label: "Experience", id: "experience" },
-    { href: "#resume", label: "Resume", id: "resume" },
-    { href: "#contact", label: "Contact", id: "contact" },
-  ];
-
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navLinks.map((link) => link.id);
+      const sections = NAV_LINKS.map((link) => link.id);
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const sectionId of sections) {
@@ -71,7 +71,7 @@ export function Navbar() {
         {/* Navigation Links */}
         <nav className="flex-1 px-8">
           <ul className="space-y-10">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -135,7 +135,7 @@ export function Navbar() {
           >
             <nav>
               <ul className="space-y-8 text-center">
-                {navLinks.map((link) => (
+                {NAV_LINKS.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
